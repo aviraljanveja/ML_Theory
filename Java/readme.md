@@ -1,2 +1,2 @@
-# Java Tutorials Chapter 1 to 10
+# Object Oriented Programming Fundamentals through Java : Tutorials
 ## Based on "Java : The Complete Reference", Book by Herbert Schildt.
