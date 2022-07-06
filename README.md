@@ -1,1 +1,1 @@
-# Machine Learning Projects & Tutorials
+# Machine Learning Fundamentals, Projects & Tutorials
