@@ -1,2 +1,3 @@
-# Object Oriented Programming Fundamentals through Java : Tutorials
-## Based on "Java : The Complete Reference", Book by Herbert Schildt.
+# Object Oriented Programming fundamentals through Java.
+## Tutorials currently under development. 
+## Based on "Java : The Complete Reference", book by Herbert Schildt.
