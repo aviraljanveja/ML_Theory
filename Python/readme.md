@@ -1,1 +1,1 @@
-# Python Tutorials and Projects
+# Python Fundamentals & Projects

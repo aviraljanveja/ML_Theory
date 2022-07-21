@@ -1,1 +1,1 @@
-# SQL Tutorials and Projects based on MySQL
+# SQL Fundamentals and Projects based on MySQL
