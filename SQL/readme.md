@@ -1,1 +1,0 @@
-# SQL Fundamentals and Projects based on MySQL
