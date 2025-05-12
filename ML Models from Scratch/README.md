@@ -1,1 +1,0 @@
-*Fundamental machine learning models covered in this course, from scratch, in Python.*

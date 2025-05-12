@@ -1,0 +1,274 @@
+\documentclass[12pt, letterpaper]{article}
+\usepackage[utf8]{inputenc}
+
+\usepackage{geometry}
+\geometry{a4paper, total={6in,10in}}
+
+\usepackage{palatino}
+\fontfamily{ppl}\selectfont
+
+\usepackage{csquotes}
+\usepackage{amsmath}
+
+\usepackage{microtype}
+\usepackage{hyperref}
+\usepackage{float}
+
+\usepackage{graphicx}
+\graphicspath{{images/}}
+
+\title{\textbf{\Huge Chapter - 1 \\ Learning from Data}}
+\author{Aviral Janveja}
+\date{}
+
+
+\begin{document}
+
+\maketitle
+
+
+\section{Introduction}
+
+Artificial Intelligence refers to the ability of machines, to perform tasks that typically require human intelligence, such as learning, reasoning, visual recognition, use of language and so on. Machine Learning on the other hand, is a major subset of AI that deals with the development of algorithms that can recognize patterns in data. The title of our first chapter - learning from data, thus faithfully describes what the subject is about.
+
+
+\section{Pre-requisites for Machine Learning}
+
+If you find these three components in a problem statement, then machine learning is ready as an application tool.
+
+\subsection{A pattern exists}
+This condition makes sense because if there is no pattern, just unpredictable randomness, then there is nothing to learn.
+
+\subsection{It is unfeasible to pin it down mathematically}
+If the nature of problem is such that you can program it precisely and easily in mathematical terms, for example dividing two numbers, then you do not require learning from data.\\
+However, for instance, when trying to determine a user's movie preferences, it is easy to see that writing an exact mathematical formula for that is unfeasible. Learning from data, makes more sense in such scenarios.
+
+\subsection{We have the data}
+As discussed, we are learning from data. So we first and foremost need to have the relevant data points. Otherwise, machine learning is not applicable. 
+
+
+\section{The Machine Learning Process}
+Next, let us formalize the machine learning process through an example from the finance domain. Consider a customer who applies for a loan. The Bank needs to decide whether it is a good idea to extend the loan or not, as the bank wants to maximize its profits.\\
+Naturally, the bank does not have a magic formula to decide whether a customer is credit worthy or not. Instead, they are going to rely on the historical records of customers and how their credit behavior turned out to be in hindsight. The idea is to look for a pattern in those historical data points, in order to predict the credit worthiness of future customers. The following are the major components of the machine learning process :
+
+\subsection{Target Function}
+The target function represents the underlying pattern that is unknown. We try to learn it approximately, through the available data points. It is denoted by :
+\begin{displaymath}
+    f : X \rightarrow Y
+\end{displaymath}
+Here $X$ is the domain, that is the set of all inputs and $Y$ the codomain, is the set of all outputs. 
+
+\subsection{Data}
+The data, which in this case refers to the historical record of customers, consists of two parts :
+\begin{enumerate}
+    \item The \textbf{Input}, which is the customer application information such as age, salary, years in residence, current debt and so on. Represented by a matrix $\mathbf{x}$.
+    \item The \textbf{Output}, which captures whether the customer was credit worthy or not in hindsight, from the bank's point of view. Represented by a binary $y$.
+\end{enumerate}
+The historical data from say, $N$ previous customers is therefore represented as : 
+\begin{displaymath}
+    \textbf{Data} : (\mathbf{x}_1,y_1), (\mathbf{x}_2,y_2), (\mathbf{x}_3,y_3)...(\mathbf{x}_N, y_N)
+\end{displaymath}
+As discussed before, these data points are used to uncover the underlying pattern relating customer data to their credit worthiness. 
+
+\subsection{Hypothesis Function}
+The hypothesis function is the formal name for our approximation of the unknown target function $f$, learned through the available data points. It is denoted by : 
+\begin{displaymath}
+    g : X \rightarrow Y
+\end{displaymath}
+The goal in machine learning is that $g$ approximates $f$ well, that is $g \approx f$.
+
+\subsection{The Learning Model}
+The learning model is what connects the data-set to the hypothesis function. The data points are fed into the learning model, which in turn comes out with the final hypothesis function. As an example, we analyze a simple learning model, called Perceptron next. 
+
+
+\section{Perceptron}
+Continuing with the above example from the finance domain, let us begin by looking at the given data. The data is available to us in the form of $N$ input-output pairs : 
+
+\begin{displaymath}
+    (\mathbf{x}_1,y_1), (\mathbf{x}_2,y_2), (\mathbf{x}_3,y_3)...(\mathbf{x}_N, y_N)
+\end{displaymath}
+ 
+Here $y_n \in \{+1, -1\}$ represents the binary decision of approving or rejecting the loan request and $\mathbf{x}_n$ is the application information of the $n^{th}$ customer, which is represented by a column matrix as shown below : 
+
+\begin{displaymath}
+\mathbf{x}_n = \begin{bmatrix}
+x_1 \\
+x_2 \\
+x_3 \\
+x_4 \\
+. \\
+. \\
+x_d
+\end{bmatrix}
+\end{displaymath}
+
+$x_1$, $x_2$, $x_3$ and so on, upto $x_d$ are the attributes of a customer like age, salary, years in residence, outstanding debt and so on.
+
+\subsection{Perceptron Function}
+
+What perceptron does, is give different weights to each of the customer attributes. The weights are multiplied to their respective attributes and then summed together as follows : 
+
+\begin{displaymath}
+    w_1x_1 + w_2x_2 + ... + w_dx_d = \sum_{i = 1}^{d} w_ix_i
+\end{displaymath}
+
+The above linear summation of weights and attributes is called the \textbf{credit score} of an individual customer. The idea is pretty simple : If the credit score is greater than a certain threshold, then we approve the loan, else we deny it. This can be re-written as : 
+
+\begin{align*}
+    & \sum_{i = 1}^{d} w_ix_i > \text{threshold (Approve Loan)} \\
+    & \sum_{i = 1}^{d} w_ix_i < \text{threshold (Deny Loan)}
+\end{align*}
+
+This is equivalent to : 
+
+\begin{align*}
+    & \sum_{i = 1}^{d} w_ix_i - \text{threshold} > 0 \ (\text{Approve Loan)} \\
+    & \sum_{i = 1}^{d} w_ix_i - \text{threshold} < 0 \ (\text{Deny Loan)}
+\end{align*}
+
+The above formula outputs a real value that could be either greater than, equal to or less than zero. In order to output a binary value (+1 or -1) representing approval or denial of credit respectively, similar to the output $y$ of our data points, we can wrap the above formula inside a \textbf{sign} function.
+
+\begin{displaymath}
+    \text{sign} \left( \sum_{i = 1}^{d} w_ix_i - \text{threshold} \right)
+\end{displaymath}
+
+The sign is just a function that takes in the real number value and outputs +1 if the real value is greater than zero and -1 if the real value is less than or equal to zero, hence giving us the binary credit decision.
+
+Further, we can simplify the above notation by making the threshold as just another weight $w_0$ and introduce an artificial coordinate $x_0 = 1$ to go along with it. This simplifies the above expression to : 
+
+\begin{displaymath}
+    \text{sign} \left( \sum_{i = 0}^{d} w_ix_i \right)
+\end{displaymath}
+
+Next, we re-write the formula in vector (column matrix) notation as follows : 
+
+\begin{displaymath}
+w_0x_0 + w_1x_1 + .. + w_dx_d \ = \begin{bmatrix}
+w_0 & w_1 & . & . & w_d\\
+\end{bmatrix}
+\begin{bmatrix}
+x_0 \\
+x_1 \\
+. \\
+. \\
+x_d
+\end{bmatrix} = \ \mathbf{w^T x}
+\end{displaymath}
+
+Here, $\mathbf{x}$ is the column matrix representing the various attributes of a customer and $\mathbf{w}^T$ is the transposed matrix, representing the weights assigned to each attribute. Hence giving us the cleaner final perceptron formula : 
+
+\begin{displaymath}
+    \text{sign}(\mathbf{w^T x})
+\end{displaymath}
+
+\subsection{Perceptron Learning Algorithm}
+ Given the data points from existing customers : 
+
+ \begin{displaymath}
+     (\mathbf{x}_1,y_1), (\mathbf{x}_2,y_2), (\mathbf{x}_3,y_3)...(\mathbf{x}_N, y_N)
+ \end{displaymath}
+
+The perceptron learning algorithm iterates through the dataset, looking for a misclassified point $(\mathbf{x}_n, y_n)$, where : 
+
+\begin{displaymath}
+    y_n \neq \text{sign}(\mathbf{w^T}\mathbf{x}_n)
+\end{displaymath}
+
+Whenever a misclassified point is found, the weight vector is updated to nudge the classifier in the right direction by applying the following \textbf{update rule} : 
+
+\begin{displaymath}
+    \mathbf{w}_{new} = \mathbf{w} + y_n\mathbf{x}_n
+\end{displaymath}
+
+This process continues, until no misclassified point is left.
+
+\subsection{Justification for the Update Rule}
+If a point $(\mathbf{x}_n,y_n)$ is misclassified, it means : 
+
+\begin{displaymath}
+    y_n \neq \text{sign}(\mathbf{w^T}\mathbf{x}_n)
+\end{displaymath}
+
+That is, $y_n = +1$ but $\text{sign}(\mathbf{w^T}\mathbf{x}_n) = -1$ or vice versa. Accordingly, the perceptron updates the weight vector as follows : 
+
+\begin{displaymath}
+    \mathbf{w}_{new} = \mathbf{w} + y_n\mathbf{x}_n
+\end{displaymath}
+
+Let us examine how this update affects the classification decision. Substituting the updated weight vector from above, we get : 
+
+\begin{displaymath}
+    \mathbf{w}_{new}^\mathbf{T}\mathbf{x}_n = (\mathbf{w} + y_n\mathbf{x}_n)\mathbf{^T}\mathbf{x}_n
+\end{displaymath}
+
+Expanding the right-hand side : 
+
+\begin{displaymath}
+    \mathbf{w}_{new}^\mathbf{T}\mathbf{x}_n = \mathbf{w^T}\mathbf{x}_n + y_n\mathbf{x}_n^\mathbf{T}\mathbf{x}_n
+\end{displaymath}
+
+This is equivalent to : 
+
+\begin{displaymath}
+    \mathbf{w}_{new}^\mathbf{T}\mathbf{x}_n = \mathbf{w^T}\mathbf{x}_n + y_n||\mathbf{x}_n||^2
+\end{displaymath}
+
+So, for a misclassified point, if $y_n = +1$ ($\text{sign}(\mathbf{w^T}\mathbf{x}_n) = -1$) then : 
+
+\begin{displaymath}
+    \mathbf{w}_{new}^\mathbf{T}\mathbf{x}_n = \mathbf{w^T}\mathbf{x}_n + ||\mathbf{x}_n||^2
+\end{displaymath}
+
+That is : 
+
+\begin{displaymath}
+    \mathbf{w}_{new}^\mathbf{T}\mathbf{x}_n > \mathbf{w^T}\mathbf{x}_n
+\end{displaymath}
+
+And when $y_n = -1$ ($\text{sign}(\mathbf{w^T}\mathbf{x}_n) = +1$) : 
+
+\begin{displaymath}
+    \mathbf{w}_{new}^\mathbf{T}\mathbf{x}_n = \mathbf{w^T}\mathbf{x}_n - ||\mathbf{x}_n||^2
+\end{displaymath}
+
+That is : 
+
+\begin{displaymath}
+    \mathbf{w}_{new}^\mathbf{T}\mathbf{x}_n < \mathbf{w^T}\mathbf{x}_n
+\end{displaymath}
+
+This shows that, each update to the weight vector nudges the perceptron in the right direction, improving its classification decision for that particular data point.
+Further, as per the perceptron \textbf{convergence theorem}, if the dataset was \textbf{linearly separable} to begin with, then the perceptron learning algorithm is guaranteed to find the weight vector that correctly classifies all the data points.
+
+The proof for the convergence theorem is not provided here. And the data being linearly separable simply means that, when the data points are plotted on a two dimensional plane, it is possible to draw a line that correctly separates them in two categories. The following image illustrates the above discussion : 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{PLA.PNG}
+    \caption{Perceptron}
+    \label{perceptron}
+\end{figure}
+
+The purple line represents our linear perceptron classifier that is uniquely determined by the choice of weight vector $\mathbf{w}$. We have a misclassified plus point in the minus region and the update rule tries to correct it by nudging the classifier in the right direction.
+
+
+\section{Types of Learning}
+As discussed in the introduction, machine learning is about learning patterns from data. Alternatively, we can put it as \textbf{using a set of observations to uncover an underlying process}. In either case, we have established that having the set of observations or data is a non-negotiable. However, the form in which the data is available to us can vary. Hence, based on the form of available data points and the type of learning model employed, machine learning can be broadly categorized into three types : supervised learning, unsupervised learning and reinforcement learning.  
+
+\subsection{Supervised Learning}
+Supervised learning is when a model is provided with correctly labeled data (\textbf{input, correct output}) as seen in the perceptron example above ($\mathbf{x}_n$, $y_n$).
+
+\subsection{Unsupervised Learning}
+Unsupervised learning is when the model is required to find patterns or clusters within an unlabeled dataset (\textbf{input, no output}).
+
+\subsection{Reinforcement Learning}
+Reinforcement learning is when the model learns from the consequences of its actions (\textbf{input, score for a particular choice of output}).
+
+
+\section{References}
+\begin{enumerate}
+    \item CalTech Machine Learning Course - CS156, Lecture 1.
+\end{enumerate}
+
+
+\end{document}
