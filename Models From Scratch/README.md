@@ -1,0 +1,3 @@
+- All models covered in this course, 
+- from scratch,
+- in Python.
